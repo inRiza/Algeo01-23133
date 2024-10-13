@@ -149,10 +149,9 @@ public class Matriks {
         return hasil;
     }
 
-    public double[][] kofaktorMatriks() {
+    public void kofaktorMatriks() {
         if (!validDeterminan()) {
             System.out.println("Kofaktor matriks hanya dapat dihitung pada matriks persegi.");
-            return null;
         }
 
         else {
@@ -165,7 +164,7 @@ public class Matriks {
                     kofaktor[i][j] = Math.pow(i, j) * minor;
                 }
             }
-            return kofaktor;
+            this.matriks = kofaktor;
         }
 
     }
@@ -197,6 +196,10 @@ public class Matriks {
 
         double det = matriks.determinanMatriks();
         System.out.println("Determinan matriks yang terhitung adalah: " + det);
+
+        System.out.println("Kofaktor matriksnya adalah: ");
+        matriks.kofaktorMatriks();
+        matriks.cetakMatriks();
 
         input.close();
     }
