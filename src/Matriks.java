@@ -25,9 +25,7 @@ public class Matriks {
             }
         }
     }
-    public Matriks bacaSPL() {
-        Scanner objSPL = new Scanner(System.in);
-    }
+
     public Matriks bacaMatriks() {
         Scanner objMatriks = new Scanner(System.in);
 
@@ -171,6 +169,40 @@ public class Matriks {
 
     }
 
+    public double[] hitungCramer(double[] b) {
+        if (!validDeterminan()) {
+            System.out.println("Cramer hanya dapat dihitung untuk matriks persegi.");
+            return null;
+        }
+        double detA = determinanMatriks();
+        if (detA == 0) {
+            System.out.println("Determinan matriks adalah 0, maka tidak dapat dihitung cramernya.");
+        }
+
+        double[] solusi = new double[this.m_baris];
+        int i, j, k;
+        for (i = 0; i < this.m_baris; i++) {
+
+            double[][] matriksAi = new double[this.m_baris][this.n_kolom];
+            for (j = 0; j < this.m_baris; j++) {
+                for (k = 0; k < this.n_kolom; k++) {
+                    if (k == 1) {
+                        matriksAi[j][k] = b[j];
+                    }
+                    else {
+                        matriksAi[j][k] = this.matriks[j][k];
+                    }
+                }
+            }
+            double detAi = hitungDeterminan(matriksAi, this.m_baris);
+
+            solusi[i] = detAi/detA;
+
+        }
+        return solusi;
+
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Matriks matriks = new Matriks();
@@ -202,6 +234,9 @@ public class Matriks {
         System.out.println("Kofaktor matriksnya adalah: ");
         matriks.kofaktorMatriks();
         matriks.cetakMatriks();
+
+        System.out.println("Kofaktor matriksnya adalah: ");
+        matriks.hitungCramer(null);
 
         input.close();
     }
