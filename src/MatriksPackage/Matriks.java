@@ -1,8 +1,8 @@
-package myMatriks;
+package MatriksPackage;
 
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class Matriks {
     public int m_baris;
@@ -27,9 +27,7 @@ public class Matriks {
             }
         }
     }
-    public Matriks bacaSPL() {
-        Scanner objSPL = new Scanner(System.in);
-    }
+
     public Matriks bacaMatriks() {
         Scanner objMatriks = new Scanner(System.in);
 
@@ -50,23 +48,6 @@ public class Matriks {
             }
         }
         return this;
-    }
-
-    public void cetakMatriks() {
-        int i, j;
-        for (i = 0; i < this.m_baris; i++) {
-            for (j = 0; j < this.n_kolom; j++) {
-                if (this.matriks[i][j] == (int) this.matriks[i][j]) {
-                    System.out.print((int) this.matriks[i][j]);
-                } else {
-                    System.out.print(this.matriks[i][j]);
-                }
-                if (j < this.n_kolom - 1) {
-                    System.out.print(" ");
-                }
-            }
-            System.out.println();
-        }
     }
 
     public void bacaMatriksDariFile(String fileName) {
@@ -101,6 +82,23 @@ public class Matriks {
 
         } catch (FileNotFoundException e) {
             System.out.println("File tidak ditemukan: " + e.getMessage());
+        }
+    }
+
+    public void cetakMatriks() {
+        int i, j;
+        for (i = 0; i < this.m_baris; i++) {
+            for (j = 0; j < this.n_kolom; j++) {
+                if (this.matriks[i][j] == (int) this.matriks[i][j]) {
+                    System.out.print((int) this.matriks[i][j]);
+                } else {
+                    System.out.print(this.matriks[i][j]);
+                }
+                if (j < this.n_kolom - 1) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -153,61 +151,120 @@ public class Matriks {
         return hasil;
     }
 
+    // Fixed kofaktorMatriks
     public void kofaktorMatriks() {
         if (!validDeterminan()) {
             System.out.println("Kofaktor matriks hanya dapat dihitung pada matriks persegi.");
-        }
-
-        else {
+        } else {
             int i, j;
             double[][] kofaktor = new double[this.m_baris][this.n_kolom];
 
             for (i = 0; i < this.m_baris; i++) {
                 for (j = 0; j < this.n_kolom; j++) {
                     double minor = hitungDeterminan(minorKofaktor(this.matriks, i, j), this.m_baris - 1);
-                    kofaktor[i][j] = Math.pow(i, j) * minor;
+                    kofaktor[i][j] = Math.pow(-1, i + j) * minor; // Fixed sign alternation
                 }
             }
             this.matriks = kofaktor;
         }
-
     }
 
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        Matriks matriks = new Matriks();
+    // Fixed transposeMatriks
+    public void transposeMatriks() {
+        double[][] hasil = new double[this.n_kolom][this.m_baris]; // Swap dimensions
 
-        System.out.println("Pilih metode input:");
-        System.out.println("1. Input manual");
-        System.out.println("2. Baca dari file");
-        System.out.print("Masukkan pilihan (1/2): ");
-        int pilihan = input.nextInt();
+        int i, j;
+        for (i = 0; i < this.m_baris; i++) {
+            for (j = 0; j < this.n_kolom; j++) {
+                hasil[j][i] = this.matriks[i][j]; // Transpose elements
+            }
+        }
+        this.matriks = hasil;
+        int temp = this.m_baris;
+        this.m_baris = this.n_kolom;
+        this.n_kolom = temp; // Swap row and column counts
+    }
 
-        if (pilihan == 1) {
-            matriks.bacaMatriks();
-        } else if (pilihan == 2) {
-            System.out.print("Masukkan nama file (misal: matrix.txt): ");
-            String fileName = input.next();
-            matriks.bacaMatriksDariFile(fileName);
-        } else {
-            System.out.println("Pilihan tidak valid!");
-            input.close();
-            return;
+    // Adjoint calculation
+    public double[][] adjointMatriks() {
+        int i, j;
+        double[][] adjoint = new double[this.m_baris][this.n_kolom];
+
+        for (i = 0; i < this.m_baris; i++) {
+            for (j = 0; j < this.n_kolom; j++) {
+                double minor = hitungDeterminan(minorKofaktor(this.matriks, i, j), this.m_baris - 1);
+                adjoint[j][i] = Math.pow(-1, i + j) * minor; // Transposed cofactor
+            }
+        }
+        return adjoint;
+    }
+
+    // Fixed inverseWithAdjoin
+    public double[][] inverseWithAdjoin() {
+        double det = determinanMatriks();
+        if (det == 0) {
+            System.out.println("Matriks tidak memiliki invers karena determinannya 0.");
+            return null;
         }
 
-        System.out.println("Matriks yang dibaca:");
-        matriks.cetakMatriks();
+        double[][] adjoint = adjointMatriks();
+        double[][] inverse = new double[this.m_baris][this.n_kolom];
 
-        double det = matriks.determinanMatriks();
-        System.out.println("Determinan matriks yang terhitung adalah: " + det);
-
-        System.out.println("Kofaktor matriksnya adalah: ");
-        matriks.kofaktorMatriks();
-        matriks.cetakMatriks();
-
-        input.close();
+        for (int i = 0; i < this.m_baris; i++) {
+            for (int j = 0; j < this.n_kolom; j++) {
+                inverse[i][j] = (1 / det) * adjoint[i][j]; // Divide each adjoint element by determinant
+            }
+        }
+        return inverse;
     }
 
-}
+    public double[] pisahSpl() {
+        double[] b = new double[this.m_baris];
 
-buatkan sebuah kode untuk dapat membaca sebuah spl menjadi sebuah matriks misalnya:
+        int i, j;
+        for (i = 0; i < this.m_baris; i++) {
+            b[i] = this.matriks[i][n_kolom - 1];
+        }
+        return b;
+    }
+
+    public double[] hitungCramer(double[] b) {
+        if (!validDeterminan()) {
+            System.out.println("Cramer hanya dapat dihitung untuk matriks persegi.");
+            return null;
+        }
+        double detA = determinanMatriks();
+        if (detA == 0) {
+            System.out.println("Determinan matriks adalah 0, maka tidak dapat dihitung cramernya.");
+        }
+
+        double[] solusi = new double[this.m_baris];
+        int i, j, k;
+        for (i = 0; i < this.m_baris; i++) {
+
+            double[][] matriksAi = new double[this.m_baris][this.n_kolom];
+            for (j = 0; j < this.m_baris; j++) {
+                for (k = 0; k < this.n_kolom; k++) {
+                    if (k == 1) {
+                        matriksAi[j][k] = b[j];
+                    } else {
+                        matriksAi[j][k] = this.matriks[j][k];
+                    }
+                }
+            }
+            double detAi = hitungDeterminan(matriksAi, this.m_baris);
+
+            solusi[i] = detAi / detA;
+
+        }
+        return solusi;
+
+    }
+
+    public void cetakList(double[] a) {
+        int i;
+        for (i = 0; i < this.m_baris; i++) {
+            System.out.println(a[i]);
+        }
+    }
+}

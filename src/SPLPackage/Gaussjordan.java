@@ -1,3 +1,5 @@
+package SPLPackage;
+
 public class Gaussjordan {
     public static void gaussJordanElimination(double[][] matrix) {
         int rows = matrix.length;
