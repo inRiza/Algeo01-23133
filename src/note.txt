@@ -1,3 +1,5 @@
+package myMatriks;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -207,3 +209,5 @@ public class Matriks {
     }
 
 }
+
+buatkan sebuah kode untuk dapat membaca sebuah spl menjadi sebuah matriks misalnya:
