@@ -14,8 +14,7 @@ public class SPL {
 
         bacaSPL(M, sfx);
     }
-    
-    //eliminasi gauss
-    //eliminasi gaussjordan
+    // eliminasi gauss
+    //eliminasi gauss jordan
     //cramer
 }

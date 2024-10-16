@@ -288,4 +288,5 @@ public class Matriks {
     public void testCase() {
         System.out.println("testing baru woi");
     }
+
 }

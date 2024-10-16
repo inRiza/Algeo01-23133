@@ -16,7 +16,7 @@ class Menu {
         System.out.println("6. Interpolasi Polinom");
         System.out.println("7. Keluar menu");
         System.out.println("========================");
-        System.out.println("Ayo dipliih ya :D (ketik no. sesuai urutan): ");
+        System.out.println("Ayo dipilih ya :D (ketik no. sesuai urutan): ");
         
         result = scan.nextInt();
 
