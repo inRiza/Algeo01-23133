@@ -160,6 +160,14 @@ public class Matriks {
         return minBaris;
     }
 
+    public double getELMT(Matriks M, int i, int j) {
+        if (i >= 0 && i < M.m_baris && j >= 0 && j < M.n_kolom) {
+            return M.Mat[i][j];
+        } else {
+            throw new IndexOutOfBoundsException("Indeks berada di luar batas matriks");
+        }
+    }    
+
     public int GetFirstIdxKolom(Matriks M) {
         return minKolom;
     }
@@ -174,6 +182,38 @@ public class Matriks {
 
     public int jumlahElmt(Matriks M) {
         return (M.m_baris * M.n_kolom);
+    }
+
+    public double[][] multiplyMatriks(Matriks m1, Matriks m2){
+        int baris = m1.m_baris;
+        int kolom = m2.n_kolom;
+        double[][] hasil = new double[baris][kolom];
+
+        int i,j,k;
+        for(i=0;i<baris;i++){
+            for(j=0;j<kolom;j++){
+                hasil[i][j] = 0;
+                for(k=0;k<baris;k++){
+                    hasil[i][j] += m1.Mat[i][k]* m2.Mat[k][j];
+                }
+            }
+        }
+        return hasil;
+    }
+
+    public double[][] multiplyByConst(Matriks m, double k){
+        int baris =m.m_baris;
+        int kolom =m.n_kolom;
+        double[][] hasil = new double[baris][kolom];
+
+        int i,j;
+
+        for(i=0;i<baris;i++){
+            for(j=0;j<kolom;j++){
+                hasil[i][j] = m.Mat[i][j]*k; 
+            }
+        }
+        return hasil;
     }
 
     private double Kofaktor(Matriks M, int i, int j) {
