@@ -11,13 +11,13 @@ class Menu {
         System.out.println("1. Sistem Persamaan Linear(SPL)");
         System.out.println("2. Determinan");
         System.out.println("3. Matriks Balikan");
-        System.out.println("4. Matriks kofaktor");
-        System.out.println("5. Adjoint");
-        System.out.println("6. Interpolasi Polinom");
+        System.out.println("4. Interpolasi Polinom");
+        System.out.println("5. Interpolasi Bikubik Spline");
+        System.out.println("6. Regresi Linear & Kuadratik berganda");
         System.out.println("7. Keluar menu");
         System.out.println("========================");
         System.out.println("Ayo dipilih ya :D (ketik no. sesuai urutan): ");
-        
+
         result = scan.nextInt();
 
         return result;
@@ -38,6 +38,22 @@ class Menu {
         return result;
     }
 
+    public static int spl() {
+        Scanner scan = new Scanner(System.in);
+        int result;
+
+        System.out.println("\n1. Metode Eliminasi Gauss");
+        System.out.println("2. Metode Eliminasi Gauss-Jordan");
+        System.out.println("3. Metode Matriks Balikan");
+        System.out.println("4. Metode Cramer");
+        System.out.println("========================");
+        System.out.println("Pilihan: ");
+
+        result = scan.nextInt();
+
+        return result;
+    }
+
     public static String inputFile() {
         Scanner scan = new Scanner(System.in);
         String result;
@@ -49,14 +65,12 @@ class Menu {
         return result;
     }
 
-    public static int spl() {
+    public static int regresi() {
         Scanner scan = new Scanner(System.in);
         int result;
 
-        System.out.println("\n1. Metode Eliminasi Gauss");
-        System.out.println("2. Metode Eliminasi Gauss-Jordan");
-        System.out.println("3. Metode Matriks Balikan");
-        System.out.println("4. Metode Cramer");
+        System.out.println("\n1. Regresi linear berganda");
+        System.out.println("2. Regresi kuadratik berganda");
         System.out.println("========================");
         System.out.println("Pilihan: ");
 
@@ -101,7 +115,7 @@ class Menu {
         Scanner scan = new Scanner(System.in);
         boolean running = true;
 
-        int menu, spl, determinan, invers;
+        int menu, spl, determinan, invers, regresi;
 
         while (running) {
             menu = Menu.menu();
