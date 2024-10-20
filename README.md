@@ -11,6 +11,9 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 | 13523158 | Lukas Raja Agripa  |
 | 13523164 | Muhammad Rizain Firdaus  |
 
+# Bahasa yang digunakan
+- Java
+
 # Features
 -  Menemukan solusi SPL dengan metode eliminasi Gauss, metode Eliminasi Gauss-Jordan, metode matriks balikan, dan kaidah Cramer.
 -  Menghitung determinan matriks dengan reduksi baris dan dengan ekspansi kofaktor.
@@ -18,17 +21,16 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 -  Menyelesaikan persoalan Interpolasi polinom dan interpolasi bicubic spline.
 -  Menyelesaikan persoalan Regresi dengan metode Regresi linear dan Kuadratik berganda.
 
-# Bahasa yang digunakan
-- Java
+# Struktur Program
   
-# How To Use
-1. Lakukan copy/pengambilan
+# Cara Menjalankan Program
+1. Lakukan Clone program
 
 
 # Links
 Repository : https://github.com/inRiza/Algeo01-23133
 Link Contributor
-- Rafa Abdussalam Danadyaksa :https://github.com/RafaAbdussalam
-- Lukas Raja Agripa :
-- Muhammad Rizain Firdaus :
+- Rafa Abdussalam Danadyaksa : https://github.com/RafaAbdussalam
+- Lukas Raja Agripa : https://github.com/rlukassa
+- Muhammad Rizain Firdaus : https://github.com/inRiza
 
