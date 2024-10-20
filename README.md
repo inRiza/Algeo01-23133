@@ -22,9 +22,14 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 -  Menyelesaikan persoalan Regresi dengan metode Regresi linear dan Kuadratik berganda.
 
 # Struktur Program
+```bash
+```
   
 # Cara Menjalankan Program
 1. Lakukan Clone program
+   ```bash
+   https://github.com/inRiza/Algeo01-23133.git
+   ```
 
 
 # Links
