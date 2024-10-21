@@ -1,14 +1,25 @@
 public class Invers {
-    // OBE
+    public static void inversPakeGaussJordan() {
+        Matriks M = Input.inputMatriks();
+        if (M == null) {
+            System.out.println("Matriks bukan persegi.");
+        } else {
+            Matriks N = new Matriks(M.Mat);
+            Matriks.inversBuatGaussJordan(M, N);
 
-    //adjoin
-    public double[][] inversWithAdjoint(Matriks M, int i, int j ){
-        double det = determinanKofaktor(M.Mat[i][j]);
-        double [][] kofaktor = kofaktorMatriks(matriks);
-        double [][] adjoint = transposeMatriks(kofaktor);
-
-        double[][] hasil = multiplyByConst(adjoint, 1/det);
-        return hasil;
+            N.cetakMatriks();
+        }
     }
-    
+
+    public static void inversPakeAdjoin() {
+        Matriks M = Input.inputMatriks();
+        if (M == null) {
+            System.out.println("Matriks bukan persegi.");
+        } else {
+            Matriks N = new Matriks(M.Mat);
+            M.inversAdjoin(M, N);
+
+            N.cetakMatriks();
+        }
+    }
 }
