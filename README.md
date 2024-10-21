@@ -23,6 +23,37 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 
 # Struktur Program
 ```bash
+│ README.md
+├── .gitignore
+├── cover.jpg
+│
+├── docs                              -- Berisikan Laporan 
+│    ├── Laporan 
+│
+├── bin
+│   ├── balikan.class
+│   ├── bicubicInterpolation.class
+│
+│
+├── src
+│   ├── Main
+│   │      Main.java
+│   │
+│   ├── Function
+│
+│
+│
+│
+├── test                             -- Berisikan Data Uji
+      │
+      ├── testcase01.txt
+      ├──
+      ├──
+      ├──
+      ├──
+      ├──
+      ├── 
+
 ```
   
 # Cara Menjalankan Program
