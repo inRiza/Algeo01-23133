@@ -57,10 +57,12 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 ```
   
 # Cara Menjalankan Program
-1. Lakukan Clone program
+1. Open github repository and copylink
    ```bash
-   https://github.com/inRiza/Algeo01-23133.git
+   git clone https://github.com/inRiza/Algeo01-23133.git
+   code .
    ```
+2. Run file main.java
 
 
 # Links
