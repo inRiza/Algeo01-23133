@@ -47,7 +47,7 @@ class Menu {
         System.out.println("3. Metode Matriks Balikan");
         System.out.println("4. Metode Cramer");
         System.out.println("========================");
-        System.out.print("Pilihan: ");
+        System.out.print("Pilih metode ke-berapa nih: ");
 
         result = scan.nextInt();
 
@@ -72,7 +72,7 @@ class Menu {
         System.out.println("\n1. Regresi linear berganda");
         System.out.println("2. Regresi kuadratik berganda");
         System.out.println("========================");
-        System.out.print("Pilihan: ");
+        System.out.print("Pilih metode 1 atau 2 nih: ");
 
         result = scan.nextInt();
 
@@ -86,7 +86,7 @@ class Menu {
         System.out.println("\n1. Metode Operasi Baris Elementer (OBE)");
         System.out.println("2. Metode Matriks Kofaktor");
         System.out.println("========================");
-        System.out.print("Pilihan: ");
+        System.out.print("Pilih metode 1 atau 2 nih: ");
 
         result = scan.nextInt();
 
@@ -98,9 +98,9 @@ class Menu {
         int result;
 
         System.out.println("\n1. Metode Adjoint");
-        System.out.println("\n2. Metode Eliminasi Gauss-Jordan");
+        System.out.println("2. Metode Eliminasi Gauss-Jordan");
         System.out.println("========================");
-        System.out.print("\nPilihan");
+        System.out.print("Pilih metode 1 atau 2 nih: ");
 
         result = scan.nextInt();
 
@@ -133,7 +133,7 @@ class Menu {
                 if (spl == 1) {
                     inputSPL = menuType();
                     if (inputSPL == 1) {
-                        SPL.bacaSPLBuatGauss("x");
+                        SPL.metodeGauss("x");
                     } else if (inputSPL == 2) {
                         String filename = inputFile();
                         try {
@@ -146,7 +146,7 @@ class Menu {
                 } else if (spl == 2) {
                     inputSPL = menuType();
                     if (inputSPL == 1) {
-                        SPL.buatGaussJordan("x");
+                        SPL.metodeGaussJordan("x");
                     } else if (inputSPL == 2) {
                         String filename = inputFile();
                         try {
@@ -159,7 +159,7 @@ class Menu {
                 } else if (spl == 3) {
                     inputSPL = menuType();
                     if (inputSPL == 1) {
-                        SPL.buatSPLInvers("x");
+                        SPL.SPLInvers("x");
                     } else if (inputSPL == 2) {
                         String filename = inputFile();
                         try {
@@ -170,7 +170,7 @@ class Menu {
                         }
                     }
                 } else if (spl == 4) {
-                    SPL.buatCramer("x");
+                    SPL.metodeCramer("x");
                 } else {
                     System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                 }

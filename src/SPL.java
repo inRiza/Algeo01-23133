@@ -3,7 +3,7 @@ import java.util.*;
 public class SPL {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void bacaSPLBuatGauss(String suffix) {
+    public static void metodeGauss(String sfx) {
         System.out.print("Masukan m : ");
         int m = scanner.nextInt();
         System.out.print("Masukan n : ");
@@ -12,11 +12,11 @@ public class SPL {
 
         M.bacaMatriks();
 
-        metodeGauss(M, suffix);
+        metodeGauss(M, sfx);
 
     }
 
-    public static void metodeGauss(Matriks M, String suffix) {
+    public static void metodeGauss(Matriks M, String sfx) {
 
         boolean tidakBernilai = false;
 
@@ -28,10 +28,10 @@ public class SPL {
             hasil[i] = new StrukturSPL();
         }
 
-        for (int i = M.GetLastIdxBaris(M); i >= M.GetFirstIdxBaris(M); i--) {
+        for (int i = M.GetLastIdxBaris(M); i >= M.GetFirstIdxBrs(M); i--) {
             int idxPertama = -1;
             StrukturSPL value = new StrukturSPL();
-            for (int j = M.GetFirstIdxKolom(M); j <= M.GetLastIdxKolom(M); j++) {
+            for (int j = M.GetFirstIdxKol(M); j <= M.GetLastIdxKolom(M); j++) {
                 if (M.Mat[i][j] != 0) {
                     if (j != n) {
                         if (hasil[j].IsEmpty()) { // Belum ada nilai
@@ -70,7 +70,7 @@ public class SPL {
             System.out.println("SPL tersebut tidak memiliki solusi");
         } else {
             for (int i = 0; i < hasil.length; i++) {
-                System.out.println(suffix + (i + 1) + " = " + hasil[i].ToString());
+                System.out.println(sfx + (i + 1) + " = " + hasil[i].ToString());
             }
         }
 
@@ -78,7 +78,7 @@ public class SPL {
 
     }
 
-    public static void buatGaussJordan(String suffix) {
+    public static void metodeGaussJordan(String sfx) {
         System.out.print("Masukan m : ");
         int m = scanner.nextInt();
         System.out.print("Masukan n : ");
@@ -87,10 +87,10 @@ public class SPL {
 
         M.bacaMatriks();
 
-        metodeGaussJordan(M, suffix);
+        metodeGaussJordan(M, sfx);
     }
 
-    public static void metodeGaussJordan(Matriks M, String suffix) {
+    public static void metodeGaussJordan(Matriks M, String sfx) {
 
         boolean tidakBernilai = false;
 
@@ -104,10 +104,10 @@ public class SPL {
             hasil[i] = new StrukturSPL();
         }
 
-        for (int i = M.GetLastIdxBaris(M); i >= M.GetFirstIdxBaris(M); i--) {
+        for (int i = M.GetLastIdxBaris(M); i >= M.GetFirstIdxBrs(M); i--) {
             int idxPertama = -1;
             StrukturSPL value = new StrukturSPL();
-            for (int j = M.GetFirstIdxKolom(M); j <= M.GetLastIdxKolom(M); j++) {
+            for (int j = M.GetFirstIdxKol(M); j <= M.GetLastIdxKolom(M); j++) {
                 if (M.Mat[i][j] != 0) {
                     if (j != n) {
                         if (hasil[j].IsEmpty()) { // Belum ada nilai
@@ -146,7 +146,7 @@ public class SPL {
             System.out.println("SPL tersebut tidak memiliki solusi");
         } else {
             for (int i = 0; i < hasil.length; i++) {
-                System.out.println(suffix + (i + 1) + " = " + hasil[i].ToString());
+                System.out.println(sfx + (i + 1) + " = " + hasil[i].ToString());
             }
         }
 
@@ -154,39 +154,40 @@ public class SPL {
 
     }
 
-    public static void buatSPLInvers(String suffix) {
+    public static void SPLInvers(String sfx) {
         System.out.print("Masukan m : ");
         int n = scanner.nextInt();
         Matriks M = new Matriks(n, n + 1);
 
         M.bacaMatriks();
 
-        SPLInvers(M, suffix);
+        SPLInvers(M, sfx);
     }
 
-    public static void SPLInvers(Matriks M, String suffix) {
+    public static void SPLInvers(Matriks M, String sfx) {
         int n = M.m_baris;
 
         // SPLIT INPUT
         Matriks A = new Matriks(n, n);
-        for (int i = A.GetFirstIdxBaris(A); i <= A.GetLastIdxBaris(A); i++) {
-            for (int j = A.GetFirstIdxKolom(A); j <= A.GetLastIdxKolom(A); j++) {
+        for (int i = A.GetFirstIdxBrs(A); i <= A.GetLastIdxBaris(A); i++) {
+            for (int j = A.GetFirstIdxKol(A); j <= A.GetLastIdxKolom(A); j++) {
                 A.Mat[i][j] = M.Mat[i][j];
             }
         }
 
         Matriks B = new Matriks(n, 1);
-        for (int i = B.GetFirstIdxBaris(B); i <= B.GetLastIdxBaris(B); i++) {
+        for (int i = B.GetFirstIdxBrs(B); i <= B.GetLastIdxBaris(B); i++) {
             B.Mat[i][0] = M.Mat[i][n];
         }
 
         // OUTPUT
         Matriks AInvers = new Matriks(n, n);
-        if (Matriks.inversBuatGaussJordan(A, AInvers)) {
+        if (Matriks.inversGaussJordan(A, AInvers)) {
             Matriks X = Matriks.kaliMatriks(AInvers, B); // PROSES SEBELUM OUTPUT
 
-            for (int i = X.GetFirstIdxBaris(X); i <= X.GetLastIdxBaris(X); i++) {
-                System.out.println(suffix + (i + 1) + " = " + X.Mat[i][0]);
+            for (int i = X.GetFirstIdxBrs(X); i <= X.GetLastIdxBaris(X); i++) {
+                System.out
+                        .println(sfx + (i + 1) + " = " + X.Mat[i][0]);
             }
         } else {
             System.out.println("SPL tersebut tidak memiliki solusi");
@@ -194,29 +195,29 @@ public class SPL {
 
     }
 
-    public static void buatCramer(String suffix) {
+    public static void metodeCramer(String sfx) {
         System.out.print("Masukan m : ");
         int n = scanner.nextInt();
         Matriks M = new Matriks(n, n + 1);
 
         M.bacaMatriks();
 
-        SPLCramer(M, suffix);
+        metodeCramer(M, sfx);
     }
 
-    public static void SPLCramer(Matriks M, String suffix) {
+    public static void metodeCramer(Matriks M, String sfx) {
         int n = M.m_baris;
 
         // SPLIT INPUT
         Matriks A = new Matriks(n, n);
-        for (int i = A.GetFirstIdxBaris(A); i <= A.GetLastIdxBaris(A); i++) {
-            for (int j = A.GetFirstIdxKolom(A); j <= A.GetLastIdxKolom(A); j++) {
+        for (int i = A.GetFirstIdxBrs(A); i <= A.GetLastIdxBaris(A); i++) {
+            for (int j = A.GetFirstIdxKol(A); j <= A.GetLastIdxKolom(A); j++) {
                 A.Mat[i][j] = M.Mat[i][j];
             }
         }
 
         Matriks B = new Matriks(n, 1);
-        for (int i = B.GetFirstIdxBaris(B); i <= B.GetLastIdxBaris(B); i++) {
+        for (int i = B.GetFirstIdxBrs(B); i <= B.GetLastIdxBaris(B); i++) {
             B.Mat[i][0] = M.Mat[i][n];
         }
 
@@ -224,10 +225,10 @@ public class SPL {
         double detA = A.determinanKofaktor(A);
         if (detA != 0) {
             double[] x = new double[n];
-            for (int j = A.GetFirstIdxKolom(A); j <= A.GetLastIdxKolom(A); j++) {
+            for (int j = A.GetFirstIdxKol(A); j <= A.GetLastIdxKolom(A); j++) {
                 Matriks Aj = new Matriks(n, n);
                 Matriks.Copy(A, Aj);
-                for (int i = A.GetFirstIdxBaris(M); i <= A.GetLastIdxBaris(A); i++) {
+                for (int i = A.GetFirstIdxBrs(M); i <= A.GetLastIdxBaris(A); i++) {
                     Aj.Mat[i][j] = B.Mat[i][0];
                 }
 
@@ -236,7 +237,7 @@ public class SPL {
 
             // OUTPUT
             for (int i = 0; i < n; i++) {
-                System.out.println(suffix + (i + 1) + " = " + x[i]);
+                System.out.println(sfx + (i + 1) + " = " + x[i]);
             }
         } else {
             System.out.println("SPL tersebut tidak memiliki solusi");

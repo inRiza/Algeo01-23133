@@ -5,7 +5,7 @@ public class Invers {
             System.out.println("Matriks bukan persegi.");
         } else {
             Matriks N = new Matriks(M.Mat);
-            Matriks.inversBuatGaussJordan(M, N);
+            Matriks.inversGaussJordan(M, N);
 
             N.cetakMatriks();
         }
@@ -17,7 +17,7 @@ public class Invers {
             System.out.println("Matriks bukan persegi.");
         } else {
             Matriks N = new Matriks(M.Mat);
-            M.inversAdjoin(M, N);
+            M.inversadjoin(M, N);
 
             N.cetakMatriks();
         }
