@@ -28,11 +28,15 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 ├── cover.jpg
 │
 ├── docs                              -- Berisikan Laporan 
-│    ├── Laporan 
+│    └─── Laporan 
 │
 ├── bin
-│   ├── balikan.class
+│   ├── Invers.class
 │   ├── bicubicInterpolation.class
+│   ├── Matriks.class
+│   ├── SPL.class
+│   ├── Determinan.class
+│   ├── 
 │
 │
 ├── src
@@ -41,7 +45,11 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 │   │
 │   ├── Function
 │   │       Invers.java
-│   │       
+│   │       Matriks.java
+│   │       SPL.java
+│   │       Determinan.java
+│   │       bicubicInterpolation.java
+│   └──────     
 │
 │
 ├── test                             -- Berisikan Data Uji
@@ -59,7 +67,7 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
       ├── testCase5b.txt
       ├── testCase5c.txt
       ├── testCase6.txt
-      ├── testCase7.txt
+      └─── testCase7.txt
 
 ```
   
