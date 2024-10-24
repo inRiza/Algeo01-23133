@@ -40,19 +40,26 @@ Pustaka (library atau package) dalam Bahasa Java untuk menemukan solusi SPL deng
 │   │      Main.java
 │   │
 │   ├── Function
-│
-│
+│   │       Invers.java
+│   │       
 │
 │
 ├── test                             -- Berisikan Data Uji
       │
-      ├── testcase01.txt
-      ├──
-      ├──
-      ├──
-      ├──
-      ├──
-      ├── 
+      ├── testCase1a.txt
+      ├── testCase1b.txt
+      ├── testCase1c.txt
+      ├── testcase1d.txt
+      ├── testCase2a.txt   
+      ├── testCase2b.txt
+      ├── testCase3a.txt
+      ├── testCase3b.txt
+      ├── testCase4.txt
+      ├── testCase5a.txt
+      ├── testCase5b.txt
+      ├── testCase5c.txt
+      ├── testCase6.txt
+      ├── testCase7.txt
 
 ```
   
