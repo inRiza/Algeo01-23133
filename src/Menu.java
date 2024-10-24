@@ -85,7 +85,7 @@ class Menu {
 
         System.out.println("\n1. Metode Operasi Baris Elementer (OBE)");
         System.out.println("2. Metode Matriks Kofaktor");
-        System.out.println("========================");
+        // System.out.println("========================");
         System.out.print("Pilih metode 1 atau 2 nih: ");
 
         result = scan.nextInt();
@@ -115,8 +115,8 @@ class Menu {
         Scanner scan = new Scanner(System.in);
         boolean running = true;
 
-        int menu, spl, determinan, invers, regresi, inputSPL;
-        Matriks fileSPL;
+        int menu, spl, determinan, invers, regresi, interpolasi, inputMenu;
+        Matriks fileMatriks;
         while (running) {
             menu = Menu.menu();
             if (menu == 2) {
@@ -131,43 +131,45 @@ class Menu {
             } else if (menu == 1) {
                 spl = Menu.menuSPL();
                 if (spl == 1) {
-                    inputSPL = menuType();
-                    if (inputSPL == 1) {
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
                         SPL.metodeGauss("x");
-                    } else if (inputSPL == 2) {
+                    } else if (inputMenu == 2) {
                         String filename = inputFile();
                         try {
-                            fileSPL = new Matriks(filename);
-                            SPL.metodeGauss(fileSPL, "x");
+                            fileMatriks = new Matriks(filename);
+                            SPL.metodeGauss(fileMatriks, "x");
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
                     }
                 } else if (spl == 2) {
-                    inputSPL = menuType();
-                    if (inputSPL == 1) {
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
                         SPL.metodeGaussJordan("x");
-                    } else if (inputSPL == 2) {
+                    } else if (inputMenu == 2) {
                         String filename = inputFile();
                         try {
-                            fileSPL = new Matriks(filename);
-                            SPL.metodeGaussJordan(fileSPL, "x");
+                            fileMatriks = new Matriks(filename);
+                            SPL.metodeGaussJordan(fileMatriks, "x");
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
                     }
                 } else if (spl == 3) {
-                    inputSPL = menuType();
-                    if (inputSPL == 1) {
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
                         SPL.SPLInvers("x");
-                    } else if (inputSPL == 2) {
+                    } else if (inputMenu == 2) {
                         String filename = inputFile();
                         try {
-                            fileSPL = new Matriks(filename);
-                            SPL.SPLInvers(fileSPL, "X");
+                            fileMatriks = new Matriks(filename);
+                            SPL.SPLInvers(fileMatriks, "X");
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
+                    } else {
+                        System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                     }
                 } else if (spl == 4) {
                     SPL.metodeCramer("x");
@@ -183,7 +185,31 @@ class Menu {
                 } else {
                     System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                 }
-            } else if (menu == 7) {
+            } else if (menu == 4) {
+                //Interpolasi.interpolasiPolinom();
+
+            } else if (menu == 5) {
+                inputMenu = menuType();
+                if (inputMenu == 1) {
+                    Interpolasi.interpolasiSplineBikubik();
+                } else if (inputMenu == 2) {
+                    String filename = inputFile();
+                    try {
+                        fileMatriks = new Matriks(filename);
+                        System.out.print("Masukan titik (x): ");
+                        double x = scan.nextDouble();
+                        System.out.print("Masukan titik (y): ");
+                        double y = scan.nextDouble();
+                        Interpolasi.interpolasiSplineBikubik(fileMatriks, x, y);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                }
+            }
+
+            else if (menu == 7) {
                 break;
             }
             System.out.println();

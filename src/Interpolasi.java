@@ -1,96 +1,71 @@
+import java.util.Scanner;
+
 public class Interpolasi {
-    
-    public static interpolasiPolinom(double[][] Matriks){
-        int row = Matriks.length;
-        int col = Matriks[0].length;
+    static Scanner scan = new Scanner(System.in);
 
-        double [][] temp = new double[row][row+1];
+    // Fungsi untuk membaca matriks dari input pengguna
+    public static void interpolasiSplineBikubik() {
+        System.out.print("Masukkan jumlah baris: ");
+        int baris = scan.nextInt();
 
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col+1;j++){
-                if(j==col){
-                    temp[i][j] = Matriks[i][1];
-                } else {
-                    temp[i][j] = Math.pow(Matriks[i][0],j);
-                }
-            }
-        }
+        System.out.print("Masukkan jumlah kolom: ");
+        int kolom = scan.nextInt();
 
-        double[][] hasil = gaussJordan(temp);
-        double[][] hasilAkhr = new double[row][1];
+        Matriks M = new Matriks(baris, kolom); // Membuat objek matriks
 
-        for(int i=0;i<row;i++){
-            hasilAkhr[i][0] = hasil[i][col];
-        }
-        return hasilAkhr;
-    }   
+        M.bacaMatriks(); // Membaca nilai-nilai matriks
 
-    public static double estimasiY(double[] Matriks, double x){
-        double y = 0;
-        int n = Matriks.length;
+        System.out.print("Masukkan titik (x): ");
+        double x = scan.nextDouble();
+        System.out.print("Masukkan titik (y): ");
+        double y = scan.nextDouble();
 
-        for(int i=0;i<n;i++){
-            y += Matriks[i]*Math.pow(x,i);
-        }
-        return y;
+        // Melakukan interpolasi bikubik
+        double hasil = interpolasiSplineBikubik(M, x, y);
+
+        // Output hasil interpolasi
+        System.out.println("Hasil interpolasi bikubik: " + hasil);
     }
 
-    public static void hasilInterpolasiPolinom(double[][] hasilAkhr, double x){
-        double hasil1 = 0;
-        int i;
-        for(i = 0;i<hasilAkhr.length;i++){
-            hasil1 += hasilAkhr[i][0]*Math.pow(x,i);
-        }
-
-        String jawaban ="";
-        System.out.println("Jawaban :");
-        String jawabanAkhir ="";
-
-        for(i=0;i< hasilAkhr.length;i++){
-            if(i == 0){
-                jawaban += jawaban + "f(x)" + hasilAkhr[i][0];
-            } else if(i == 1){
-                jawaban += " + " + hasilAkhr[i][0] + "x";
-            } else {
-                jawaban += " + " + hasilAkhr[i][0] + "x^" + i;
-            }
-        }
-        jawabanAkhir = jawaban + " = " + hasil1;
-        return jawabanAkhir;
+    // Fungsi untuk melakukan interpolasi kubik 1D
+    public static double interpolasiKubik(double[] p, double x) {
+        return p[1] + 0.5 * x * (p[2] - p[0] + x * (2.0 * p[0] - 5.0 * p[1] + 4.0 * p[2] - p[3]
+                + x * (3.0 * (p[1] - p[2]) + p[3] - p[0])));
     }
 
-    public static void menuInterpolasiPolinom(){
-        Scanner input = new Scanner(System.in);
-        int inputTipe;
+    // Fungsi untuk interpolasi bikubik pada grid 2D
+    public static double interpolasiSplineBikubik(Matriks M, double x, double y) {
+        // Asumsi Matriks M adalah 4x4 (untuk interpolasi bikubik)
 
-        System.out.println("\nPilih jenis masukan: ");
-        System.out.println("1.Input dari keyboard");
-        System.out.println("2.Input dari file");
-        System.out.println("========================");
-        System.out.print("1 atau 2 nih: ");
-        inputTipe = input.nextInt();
-
-        while(inputTipe != 1 && inputTipe != 2){
-            System.out.println("Masukan salah, masukan ulang");
-            System.out.print("1 atau 2 nih: ");
-            inputTipe = input.nextInt();
+        double[] arr = new double[4];
+        for (int i = 0; i < 4; i++) {
+            // Mengambil baris ke-i dari matriks
+            double[] row = M.Mat[i]; // Asumsi M.getBaris(i) mengembalikan array double[] baris ke-i
+            arr[i] = interpolasiKubik(row, x);
         }
-
-        // if(inputTipe == 1){
-        //     System.out.print("Masukkan derjat polinomial: ");
-        //     int n = input.nextInt();
-        //     double[][] titik = new double[n+1][2];
-        //     for(int i=0;i<n;i++){
-        //         System.out.print("Masukkan x"+(i+1)+": ");
-        //         titik[i][0] = input.nextDouble();
-        //         System.out.print("Masukkan y"+(i+1)+": ");
-        //         titik[i][1] = input.nextDouble();
-        //     }
-        // }
-        // else{
-
-        // }
+        // Lakukan interpolasi kubik pada hasil interpolasi kolom (sumbu Y)
+        return interpolasiKubik(arr, y);
     }
 
+    /*public static void interpolasiPolinom() {
+        System.out.print("Masukan derajat polinom (n): ");
+        int baris = scan.nextInt();
+        Matriks titik = new Matriks(baris, 2);
+        titik.bacaMatriks();
+        Matriks baru = new Matriks(baris, 4);
+        for (int i = 0; i < baru.m_baris; i++) {
+            baru.Mat[i][2] = 1;
+        }
+        for (int i = 0; i < baru.m_baris; i++) {
+            baru.Mat[i][1] = titik.Mat[i][0];
+        }
+        for (int i = 0; i < baru.m_baris; i++) {
+            baru.Mat[i][0] = titik.Mat[i][0] * titik.Mat[i][0];
+        }
+        for (int i = 0; i < baru.m_baris; i++) {
+            baru.Mat[i][3] = titik.Mat[i][1];
+        }
 
+        SPL.metodeGauss(baru, "x");
+    }*/
 }
