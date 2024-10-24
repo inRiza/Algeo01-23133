@@ -115,7 +115,6 @@ class Menu {
 
         int menu, spl, determinan, invers, reg, inputMenu;
         Matriks fileMatriks;
-
         while (running) {
             menu = Menu.menu();
             if (menu == 1) {
@@ -340,7 +339,6 @@ class Menu {
             } else if (menu == 7) {
                 break;
             }
-            saveToFile(result.toString());
 
             System.out.println();
             System.out.print("Memulai lagi(y/n) ? ");
