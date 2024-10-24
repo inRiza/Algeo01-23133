@@ -40,32 +40,53 @@ public class Interpolasi {
         double[] arr = new double[4];
         for (int i = 0; i < 4; i++) {
             // Mengambil baris ke-i dari matriks
-            double[] row = M.Mat[i]; // Asumsi M.getBaris(i) mengembalikan array double[] baris ke-i
-            arr[i] = interpolasiKubik(row, x);
+            double[] baris = M.Mat[i]; // Asumsi M.getBaris(i) mengembalikan array double[] baris ke-i
+            arr[i] = interpolasiKubik(baris, x);
         }
         // Lakukan interpolasi kubik pada hasil interpolasi kolom (sumbu Y)
         return interpolasiKubik(arr, y);
     }
 
-    /*public static void interpolasiPolinom() {
-        System.out.print("Masukan derajat polinom (n): ");
-        int baris = scan.nextInt();
-        Matriks titik = new Matriks(baris, 2);
-        titik.bacaMatriks();
-        Matriks baru = new Matriks(baris, 4);
-        for (int i = 0; i < baru.m_baris; i++) {
-            baru.Mat[i][2] = 1;
-        }
-        for (int i = 0; i < baru.m_baris; i++) {
-            baru.Mat[i][1] = titik.Mat[i][0];
-        }
-        for (int i = 0; i < baru.m_baris; i++) {
-            baru.Mat[i][0] = titik.Mat[i][0] * titik.Mat[i][0];
-        }
-        for (int i = 0; i < baru.m_baris; i++) {
-            baru.Mat[i][3] = titik.Mat[i][1];
+    public static void interpolasiPolinom() {
+         // Input jumlah titik M
+         System.out.print("Masukkan jumlah titik: ");
+         int baris = scan.nextInt();
+ 
+         Matriks M = new Matriks(baris, 2);
+         M.bacaMatriks();
+ 
+         // Memasukkan nilai x yang ingin diprediksi
+         System.out.print("Masukkan nilai x untuk estimasi: ");
+         double xp = scan.nextDouble();
+ 
+         // Lakukan interpolasi Lagrange
+         double yp = interpolasiPolinom(M, xp);
+ 
+         // Output hasil prediksi
+         System.out.println("Hasil estimasi y pada x = " + xp + " adalah " + yp);
+ 
+         scan.close();
+    }
+    // Fungsi untuk menghitung polinom interpolasi Lagrange
+    public static double interpolasiPolinom(Matriks M, double xp) {
+        int n = M.m_baris;
+        double hasil = 0.0;
+
+        // Loop untuk menghitung setiap suku Lagrange
+        for (int i = 0; i < n; i++) {
+            double sukuL = 1.0;
+
+            // Hitung nilai suku Lagrange L_i(x)
+            for (int j = 0; j < n; j++) {
+                if (j != i) {
+                    sukuL *= (xp - M.Mat[j][0]) / (M.Mat[i][0] - M.Mat[j][0]);
+                }
+            }
+
+            // Tambahkan suku Lagrange yang telah dikalikan dengan y[i]
+            hasil += sukuL * M.Mat[i][1];
         }
 
-        SPL.metodeGauss(baru, "x");
-    }*/
+        return hasil;
+    }
 }

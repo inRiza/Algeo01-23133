@@ -186,8 +186,7 @@ class Menu {
                     System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                 }
             } else if (menu == 4) {
-                //Interpolasi.interpolasiPolinom();
-
+                Interpolasi.interpolasiPolinom();
             } else if (menu == 5) {
                 inputMenu = menuType();
                 if (inputMenu == 1) {
