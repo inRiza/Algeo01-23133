@@ -48,25 +48,26 @@ public class Interpolasi {
     }
 
     public static void interpolasiPolinom() {
-         // Input jumlah titik M
-         System.out.print("Masukkan jumlah titik: ");
-         int baris = scan.nextInt();
- 
-         Matriks M = new Matriks(baris, 2);
-         M.bacaMatriks();
- 
-         // Memasukkan nilai x yang ingin diprediksi
-         System.out.print("Masukkan nilai x untuk estimasi: ");
-         double xp = scan.nextDouble();
- 
-         // Lakukan interpolasi Lagrange
-         double yp = interpolasiPolinom(M, xp);
- 
-         // Output hasil prediksi
-         System.out.println("Hasil estimasi y pada x = " + xp + " adalah " + yp);
- 
-         scan.close();
+        // Input jumlah titik M
+        System.out.print("Masukkan jumlah titik: ");
+        int baris = scan.nextInt();
+
+        Matriks M = new Matriks(baris, 2);
+        M.bacaMatriks();
+
+        // Memasukkan nilai x yang ingin diprediksi
+        System.out.print("Masukkan nilai x untuk estimasi: ");
+        double xp = scan.nextDouble();
+
+        // Lakukan interpolasi Lagrange
+        double yp = interpolasiPolinom(M, xp);
+
+        // Output hasil prediksi
+        System.out.println("Hasil estimasi y pada x = " + xp + " adalah " + yp);
+
+        scan.close();
     }
+
     // Fungsi untuk menghitung polinom interpolasi Lagrange
     public static double interpolasiPolinom(Matriks M, double xp) {
         int n = M.m_baris;

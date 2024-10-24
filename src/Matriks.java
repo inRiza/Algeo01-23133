@@ -1,11 +1,7 @@
 import java.util.*;
-
-//import jdk.nashorn.internal.parser.Scanner;
-
 import java.io.*;
 
 public class Matriks {
-    public static final double decPoint = 10000000000d;
 
     Scanner scan = new Scanner(System.in); // Untuk Input
     public int minBaris = 0;
@@ -18,7 +14,6 @@ public class Matriks {
     // Manggil isi matriks-nya matriks.Mat[m_baris][n_kolom]
     // Indeks m_baris & n_kolom mulai dari 0
 
-    /* ********** KONSTRUKTOR ********** */
     public Matriks(int baris, int kolom) {
         this.m_baris = baris;
         this.n_kolom = kolom;
@@ -67,7 +62,6 @@ public class Matriks {
         }
     }
 
-    /* ********** SELEKTOR ********** */
     public int GetFirstIdxBrs(Matriks M) {
         return minBaris;
     }
@@ -88,7 +82,6 @@ public class Matriks {
         return (M.m_baris * M.n_kolom);
     }
 
-    /* ********** TIPE MATRIKS UMUM ********** */
     public static Matriks Identitas(int N) {
         Matriks I = new Matriks(N, N);
         for (int i = 0; i < N; i++)
@@ -106,8 +99,6 @@ public class Matriks {
         return H;
     }
 
-    /* ********** INPUT/OUTPUT MATRIKS ********** */
-    // Baca Matriks
     public void bacaMatriks() {
         System.out.println("Silahkan masukan Matriks : ");
         for (int i = 0; i < this.m_baris; i++) {
@@ -129,7 +120,6 @@ public class Matriks {
         }
     }
 
-    /* ********** OPERASI MATRIKS DASAR ********** */
     public static Matriks kaliBilangan(Matriks M, double k) {
         Matriks out = new Matriks(M.m_baris, M.n_kolom);
         for (int i = 0; i < M.m_baris; i++) {
@@ -159,8 +149,6 @@ public class Matriks {
         return out;
     }
 
-    /* ********** OPERASI BARIS ELEMENTER ********** */
-    // Nuker m_baris
     public void Swap(int Brs1, int Brs2) {
         double[] temp = Mat[Brs1];
         Mat[Brs1] = Mat[Brs2];
@@ -168,14 +156,12 @@ public class Matriks {
     }
 
     public void kalikanBaris(int m_baris, double x) {
-        // Perkalian m_baris dengan sebuah bilangan real
         for (int i = 0; i < n_kolom; i++) {
             Mat[m_baris][i] *= x;
         }
     }
 
     public void Plusm_baris(int m_baris1, int m_baris2, double k) {
-        // m_baris ke-a ditambah dengan bilangan di baris ke-b
         for (int i = 0; i < n_kolom; i++) {
             Mat[m_baris1][i] += Mat[m_baris2][i] * k;
         }
@@ -209,7 +195,6 @@ public class Matriks {
         return out;
     }
 
-    /* ********** FUNGSI SKALAR ********** */
     // Determinan
     public double determinanOBE(Matriks M) {
         Matriks N = Copy(M);
@@ -304,11 +289,6 @@ public class Matriks {
     }
 
     public void transposeMatriks() {
-        /* I.S. M terdefinisi dan IsBujursangkar(M) */
-        /*
-         * F.S. M "di-transpose", yaitu setiap elemen M(i,j) ditukar nilainya dengan
-         * elemen M(j,i)
-         */
         Matriks M1 = new Matriks(this.n_kolom, this.m_baris);
 
         for (int i = GetFirstIdxBrs(M1); i <= GetLastIdxBaris(M1); i++) {
@@ -341,9 +321,6 @@ public class Matriks {
     }
 
     public static boolean inversGaussJordan(Matriks in, Matriks out) {
-        // in terdefinisi dan IsBujurSangkar(in), Program menghasilkan invers dari in
-        // dengan Eliminasi Gauss-Jordan
-        // Jika gagal maka out = in
         Matriks M = Copy(in);
 
         M = gabungMatriksHorizontal(M, Identitas(M.m_baris));
@@ -384,9 +361,6 @@ public class Matriks {
     }
 
     public static Matriks eliminasiGauss(Matriks in) {
-        // I.S. M terdefinisi
-        // F.S. M diubah menjadi matriks eselonnya
-        // Proses: Eliminasi Gauss
 
         // Inisialisasi
         Matriks M = new Matriks(1, 1);
@@ -442,9 +416,6 @@ public class Matriks {
     }
 
     public static Matriks eliminasiGaussJordan(Matriks in) {
-        // I.S. M terdefinisi
-        // F.S. M diubah menjadi matriks eselon-terreduksinya
-        // Proses: Eliminasi Gauss Jordan
 
         // Proses
         Matriks M = eliminasiGauss(in);
@@ -472,8 +443,6 @@ public class Matriks {
     }
 
     public static void Copy(Matriks dari, Matriks ke) {
-        // I.S. dari dan ke terdefinisi
-        // F.S. ke berisi sama dengan dari
         ke.m_baris = dari.m_baris;
         ke.n_kolom = dari.n_kolom;
         ke.Mat = new double[dari.m_baris][dari.n_kolom];
@@ -494,8 +463,6 @@ public class Matriks {
 
     // Menyambungkan matriks M dan N
     public static Matriks gabungMatriksHorizontal(Matriks M, Matriks N) {
-        // M dan N terdefinisi dan jumlah baris sama, fungsi mengoutput hasil gabungan M
-        // dan N
         Matriks out = new Matriks(M.m_baris, M.n_kolom + N.n_kolom);
 
         for (int i = 0; i < out.m_baris; i++) {
@@ -513,8 +480,6 @@ public class Matriks {
 
     // Menyambungkan matriks M dan N
     public static Matriks gabungMatriksVertikal(Matriks M, Matriks N) {
-        // M dan N terdefinisi dan jumlah kolom sama, fungsi mengoutput hasil gabungan M
-        // dan N
         Matriks out = new Matriks(M.m_baris + N.m_baris, M.n_kolom);
 
         for (int i = 0; i < out.m_baris; i++) {
@@ -531,7 +496,7 @@ public class Matriks {
     }
 
     private static double Approximate(double x) {
-        return (Math.round(x * decPoint) / decPoint);
+        return (Math.round(x));
     }
 
     private void Approximate() {

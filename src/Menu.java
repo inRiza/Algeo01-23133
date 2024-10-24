@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 class Menu {
@@ -85,7 +87,7 @@ class Menu {
 
         System.out.println("\n1. Metode Operasi Baris Elementer (OBE)");
         System.out.println("2. Metode Matriks Kofaktor");
-        // System.out.println("========================");
+        System.out.println("========================");
         System.out.print("Pilih metode 1 atau 2 nih: ");
 
         result = scan.nextInt();
@@ -107,28 +109,16 @@ class Menu {
         return result;
     }
 
-    public static void outputFile() {
-
-    }
-
     public static void Run() {
         Scanner scan = new Scanner(System.in);
         boolean running = true;
 
-        int menu, spl, determinan, invers, regresi, interpolasi, inputMenu;
+        int menu, spl, determinan, invers, reg, inputMenu;
         Matriks fileMatriks;
+
         while (running) {
             menu = Menu.menu();
-            if (menu == 2) {
-                determinan = Menu.determinan();
-                if (determinan == 1) {
-                    Determinan.detOBE();
-                } else if (determinan == 2) {
-                    Determinan.detKofaktor();
-                } else {
-                    System.out.println("Pilihan tidak ada! Cek lagi ya :D");
-                }
-            } else if (menu == 1) {
+            if (menu == 1) {
                 spl = Menu.menuSPL();
                 if (spl == 1) {
                     inputMenu = menuType();
@@ -172,10 +162,59 @@ class Menu {
                         System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                     }
                 } else if (spl == 4) {
-                    SPL.metodeCramer("x");
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
+                        SPL.metodeCramer("x");
+                    } else if (inputMenu == 2) {
+                        String filename = inputFile();
+                        try {
+                            fileMatriks = new Matriks(filename);
+                            SPL.metodeCramer(fileMatriks, "x");
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                    }
                 } else {
                     System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                 }
+            } else if (menu == 2) {
+                determinan = Menu.determinan();
+                if (determinan == 1) {
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
+                        Determinan.detOBE();
+                    } else if (inputMenu == 2) {
+                        String filename = inputFile();
+                        try {
+                            fileMatriks = new Matriks(filename);
+                            fileMatriks.determinanOBE(fileMatriks);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                    }
+                } else if (determinan == 2) {
+                    inputMenu = menuType();
+                    if (inputMenu == 2) {
+                        Determinan.detKofaktor();
+                    } else if (inputMenu == 2) {
+                        String filename = inputFile();
+                        try {
+                            fileMatriks = new Matriks(filename);
+                            fileMatriks.determinanKofaktor(fileMatriks);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                    }
+                } else {
+                    System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                }
+
             } else if (menu == 3) {
                 invers = Menu.invers();
                 if (invers == 1) {
@@ -186,7 +225,24 @@ class Menu {
                     System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                 }
             } else if (menu == 4) {
-                Interpolasi.interpolasiPolinom();
+                inputMenu = menuType();
+                if (inputMenu == 1) {
+                    Interpolasi.interpolasiPolinom();
+                } else if (inputMenu == 2) {
+                    String filename = inputFile();
+                    try {
+                        fileMatriks = new Matriks(filename);
+                        System.out.print("Masukkan nilai x untuk estimasi: ");
+                        double xp = scan.nextDouble();
+                        double yp = Interpolasi.interpolasiPolinom(fileMatriks, xp);
+                        System.out.println("Hasil estimasi y pada x = " + xp + " adalah " + yp);
+                        scan.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                }
             } else if (menu == 5) {
                 inputMenu = menuType();
                 if (inputMenu == 1) {
@@ -206,11 +262,86 @@ class Menu {
                 } else {
                     System.out.println("Pilihan tidak ada! Cek lagi ya :D");
                 }
-            }
+            } else if (menu == 6) {
+                reg = regresi();
+                if (reg == 1) {
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
+                        Regresi.regresiLinearBerganda();
+                    } else if (inputMenu == 2) {
+                        String filename = inputFile();
+                        try {
+                            fileMatriks = new Matriks(filename);
+                            double[] Y = new double[fileMatriks.m_baris];
 
-            else if (menu == 7) {
+                            for (int i = 0; i < fileMatriks.m_baris; i++) {
+                                Y[i] = fileMatriks.Mat[i][fileMatriks.n_kolom - 1];
+                            }
+
+                            Matriks Xbaru = new Matriks(fileMatriks.m_baris, fileMatriks.n_kolom - 1);
+                            // Menghapus kolom terakhir
+                            for (int i = 0; i < fileMatriks.m_baris; i++) {
+                                for (int j = 0; j < fileMatriks.n_kolom - 1; j++) {
+                                    Xbaru.Mat[i][j] = fileMatriks.Mat[i][j];
+                                }
+                            }
+                            Regresi.regresiLinear(fileMatriks, Y);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Pilihan tidak ada! Cek lagi ya :D");
+                    }
+                } else if (reg == 2) {
+                    inputMenu = menuType();
+                    if (inputMenu == 1) {
+                        Regresi.regresiKuadratikBerganda();
+                    } else if (inputMenu == 2) {
+                        String filename = inputFile();
+                        try {
+                            fileMatriks = new Matriks(filename);
+                            double[] Y = new double[fileMatriks.m_baris];
+
+                            for (int i = 0; i < fileMatriks.m_baris; i++) {
+                                Y[i] = fileMatriks.Mat[i][fileMatriks.n_kolom - 1];
+                            }
+
+                            Matriks Xbaru = new Matriks(fileMatriks.m_baris, fileMatriks.n_kolom - 1);
+                            // Menghapus kolom terakhir
+                            for (int i = 0; i < fileMatriks.m_baris; i++) {
+                                for (int j = 0; j < fileMatriks.n_kolom - 1; j++) {
+                                    Xbaru.Mat[i][j] = fileMatriks.Mat[i][j];
+                                }
+                            }
+
+                            int newCols = Xbaru.n_kolom + Xbaru.n_kolom + (Xbaru.n_kolom * (Xbaru.n_kolom - 1)) / 2;
+                            Matriks X_quad = new Matriks(Xbaru.m_baris, newCols);
+                            for (int i = 0; i < Xbaru.m_baris; i++) {
+                                int index = 0;
+                                for (int j = 0; j < Xbaru.n_kolom; j++) {
+                                    X_quad.Mat[i][index++] = Xbaru.Mat[i][j]; // linear term
+                                }
+                                for (int j = 0; j < Xbaru.n_kolom; j++) {
+                                    X_quad.Mat[i][index++] = Xbaru.Mat[i][j] * Xbaru.Mat[i][j]; // quadratic term
+                                }
+                                for (int j = 0; j < Xbaru.n_kolom; j++) {
+                                    for (int k = j + 1; k < Xbaru.n_kolom; k++) {
+                                        X_quad.Mat[i][index++] = Xbaru.Mat[i][j] * Xbaru.Mat[i][k]; // interaction term
+                                    }
+                                }
+                            }
+
+                            Regresi.regresiLinear(fileMatriks, Y);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                }
+            } else if (menu == 7) {
                 break;
             }
+            saveToFile(result.toString());
+
             System.out.println();
             System.out.print("Memulai lagi(y/n) ? ");
             char mulai = scan.next().charAt(0);
