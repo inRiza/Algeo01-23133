@@ -1,0 +1,12 @@
+-- solving well-defined problems, mindsport
+
+-- algorithm, data structures, math, logic 
+-- depends memory and time exucutes
+
+
+-- handbook alogrithm and data structures : https://cses.fi/book/book.pdf
+--- hackerrank 
+--- codespaces
+--- geeks for geeks : https://www.geeksforgeeks.org/fundamentals-of-algorithms/
+--- a2oj
+--- https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbkg4Qkg0clhESERpUjdjUThHVmhuaFphUmpkd3xBQ3Jtc0tubGlaR2VDSmp1WHFNWC1kNnI3QndrODdRc3h0NkFFZEdZajhXTi1rSDFvTEFHYTJVYnhtUXZmZlBTMEFtX2dWdXF5MVVLNC1Od3NKenlpdEduaHBEdXVZaVpxbVJCQlAya0ZTOTVoLWNfMG5qQVRpTQ&q=https%3A%2F%2Fgoo.gl%2FunDETI&v=bVKHRtafgPc
